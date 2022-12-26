@@ -16,11 +16,15 @@ When the OS is virtualizing memory, each process accesses its own private virtua
 For modern multi-threaded programs, you can think of a thread as a function running within the same memory space as other functions, with more than one of them active at a time. When two threads increment a shared counter, a counter increment takes three instructions: one to load the value of the counter from memory into a register, one to increment it, and one to store it back into memory. Because these three instructions do not execute atomically (all at once), strange things can happen. 
 
 ## Persistence
+The software in the operating system that usually manages the disk is called the `file system`, it is responsible for storing files in a reliable and efficient manner. Disks are not virtualized, because files are often shared across different processes. The OS provides a standard & simple way to access devices through its system calls, so the OS is like a standard library.
 
-
-
-
-
+## Design Goals of OS
+What an OS does: it takes physical resources, such as a CPU, memory, or disk, and `virtualizes` them. It handles tough and tricky issues related to `concurrency`. And it stores files `persistently`, thus making them safe over the long-term. To build such a system, the goals are:
+- build up some `abstractions` in order to make the system convenient and easy to use
+- provide high `performance` (minimize the overheads of the OS)
+- provide `protection` between applications, and between the OS and applications
+- `Reliability`. 
+- ...
 
 
 
