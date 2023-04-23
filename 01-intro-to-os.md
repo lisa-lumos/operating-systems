@@ -1,7 +1,7 @@
 # 1. Introduction to Operating Systems
 `Virtualization`: The OS takes a physical resource (processor/memory/a disk) and transforms it into a more general virtual form of itself. The OS also provides some interfaces (APIs/system calls/standard library, all mean the same) so you can interact with it.
 
-Because virtualization allows many programs to run (sharing the CPU), and many programs to concurrently access their own instructions and data (sharing memory), and many programs to access devices (sharing disks etc.), the OS is sometimes known as a `resource manager`. Each of the CPU, memory, and disk is a resource of the system; it is the operating system’s role to manage those resources. 
+Because virtualization allows many programs to run (sharing the CPU), and many programs to concurrently access their own instructions and data (sharing memory), and many programs to access devices (sharing disks etc.), the OS is sometimes known as a `resource manager`. Each of the CPU, memory, and disk is a resource of the system; it is the operating system's role to manage those resources. 
 
 ## Virtualizing The CPU
 Turning a single CPU (or a small set of them) into a seemingly infinite number of CPUs and thus allowing many programs to seemingly run at once is what we call `virtualizing the CPU`. 
@@ -25,31 +25,4 @@ What an OS does: it takes physical resources, such as a CPU, memory, or disk, an
 - provide `protection` between applications, and between the OS and applications
 - `Reliability`. 
 - ...
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
