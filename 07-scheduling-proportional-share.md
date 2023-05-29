@@ -21,29 +21,18 @@ As each process runs, it accumulates vruntime. CFS uses various control paramete
 
 CFS also enables controls over process priority, enabling users or administrators to give some processes a higher share of the CPU. It does this through a classic UNIX mechanism known as the nice level of a process. When you're too nice, you just don't get as much (scheduling) attention, alas.
 
+## Read-black trees
+One aspect of efficiency: `when the scheduler has to find the next job to run, it should do so as quickly as possible`. Simple data structures like lists don't scale: modern systems sometimes are comprised of 1000s of processes, and thus searching through a long-list every so many milliseconds is wasteful. CFS addresses this by keeping processes in a `red-black tree`. 
 
+A red-black tree is a type of balanced tree - balanced trees maintain low depths, and thus ensure that operations are logarithmic in time. CFS only keeps running/runnable processes in there. If a process goes to sleep (by waiting on an I/O to complete, or for a network packet to arrive), it is removed from this tree.
 
+## Dealing with I/O and sleeping processes
+Imagine two processes, A and B, A runs continuously, B has gone to sleep for a long period of time (10 seconds). When B wakes up, its vruntime will be 10 seconds behind A's, and thus, B will now monopolize the CPU for the next 10 seconds while it catches up, starving A.
 
+CFS handles this by altering the vruntime of a job when it wakes up. Specifically, CFS sets the vruntime of that job to the minimum value found in the tree. In this way, CFS avoids starvation, but not without a cost: jobs that sleep for short periods of time frequently do not ever get their fair share of the CPU. 
 
+## Summary
+CFS is a bit like weighted round-robin with dynamic time slices, but built to scale and perform well under load. It is the most widely used fair-share scheduler today.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+In a virtualized data center, or cloud, where you might like to assign 1/4 of your CPU cycles to the Windows VM, and the rest to your base Linux installation, proportional sharing can be simple and effective.
 
