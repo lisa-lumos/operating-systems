@@ -15,3 +15,4 @@ Critical junctures where the OS must get involved, to implement base-and-bounds 
 
 when a process is not running, it is possible for the OS to move an address space from one location in memory to another. To do so, the OS first deschedules the process; then, the OS copies the address space from the current location to the new location; finally, the OS updates the saved base register (in the process structure) to point to the new location. 
 
+Internal fragmentation: the space inside the allocated unit is not all used, and thus wasted. Which is the disadvantage of the current model. 
