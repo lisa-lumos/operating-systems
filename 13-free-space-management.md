@@ -21,19 +21,10 @@ The ideal allocator is both fast and minimizes fragmentation. Here are some basi
 - First fit: finds the first block that is big enough, and returns the requested amount
 - Next fit: keeps an extra pointer to the location within the list, where one was looking previously. The idea is to spread the searches for free space throughout the list more uniformly, thus avoiding splintering of the beginning of the list.
 
-Other approaches 、： 
+Some other approaches： 
+- Segregated lists: if an app makes one/several popular-sized request, keep a separate list just to manage objects of that size; all other requests are forwarded to a more general memory allocator.
+- Buddy allocation: makes coalescing simple. 
+- ...
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+One major problem with many of the approaches described above, is their lack of scaling - searching lists can be quite slow. Thus, advanced allocators use more complex data structures to address these costs, trading simplicity for performance.
 
