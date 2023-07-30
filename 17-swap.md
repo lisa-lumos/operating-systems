@@ -13,14 +13,6 @@ The act of accessing a page, that is not in physical memory, is referred to as a
 
 If the memory is close to full, the OS may first page out one/more pages, to make room for the new page(s). The process of picking a page to kick out, or replace, is known as the page-replacement policy.
 
+To keep a small amount of memory free, most operating systems have high watermark (HW) and low watermark (LW) metrics, to help decide when to start evicting pages from memory.
 
-
-
-
-
-
-
-
-
-
-
+Many systems will cluster/group a number of pages and write them out at once to the swap partition, thus increasing the efficiency of the disk.
