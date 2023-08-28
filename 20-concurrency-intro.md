@@ -13,6 +13,10 @@ There are at least two major reasons you should use threads:
 
 The objdump program is just one of many tools you should learn how to use; a debugger like gdb, memory profilers like valgrind or purify, and of course the compiler itself are others that you should spend time to learn more about; the better you are at using your tools, the better systems you'll be able to build.
 
+A "critical section" is a piece of code that accesses a shared variable (or more generally, a shared resource), and must NOT be concurrently executed by more than one thread.
 
+By using hardware support, with some help from the OS, we will be able to build multi-threaded code that accesses critical sections in a synchronized and controlled manner, and thus reliably produces the correct result despite the challenging nature of concurrent execution.
 
+There is another common interaction , where one thread must wait for another to complete some action before it continues. This interaction arises, for example, when a process performs a disk I/O and is put to sleep; when the I/O completes, the process needs to be roused from its slumber so it can continue.
 
+The OS was the first concurrent program, and many techniques were created for use within the OS. For example, imagine there are two processes running. Assume they both call write() to write to the file, and both wish to append the data to the file. To do so, both must allocate a new block, record in the inode of the file where this block lives, and change the size of the file to reflect the new larger size. Because an interrupt may occur at any time, the code that updates these shared structures are "critical sections"; thus, OS designers, from the very beginning of the introduction of the interrupt, had to worry about how the OS updates internal structures. Page tables, process lists, file system structures, and virtually every kernel data structure, has to be carefully accessed, with the proper "synchronization primitives", to work correctly.
