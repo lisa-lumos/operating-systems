@@ -53,11 +53,4 @@ The problem is solved through abstraction. At the lowest level, a piece of softw
 
 For example, a file system is completely oblivious to the specifics of which disk class it is using; it simply issues block read/write requests to the generic block layer, which routes them to the appropriate device driver, which handles the details of issuing the specific request.
 
-
-
-
-
-
-
-
-
+Studies of the Linux kernel reveal that over 70% of OS code is found in device drivers; for Windows-based systems, it is likely quite high as well. As drivers are often written by "amateurs" (instead of full-time kernel developers), they tend to have many more bugs, and thus are a primary contributor to kernel crashes. 
