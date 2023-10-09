@@ -19,33 +19,4 @@ Seek: moving the disk arm to the correct track. Rotation: the rotation of splatt
 
 T_I/O = T_seek + T_rotation + T_transfer
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Disk scheduling. Unlike job scheduling, where the length of each job is usually unknown, with disk scheduling, we can make a good guess at how long a job will take. By estimating the seek and possible rotational delay of a request, the disk scheduler can know how long each request will take, and thus (greedily) pick the one that will take the least time to service first(SJF, shortest job first) in its operation.
