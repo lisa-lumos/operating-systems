@@ -23,6 +23,13 @@ If a process that opens the same file twice, and issues a read to each of them, 
 
 However, there are a few interesting cases, where an entry in the open file table is shared. One of those cases occurs, when a parent process creates a child process with fork(). Sharing open file table entries across parent and child is occasionally useful. For example, if you create a number of processes that are cooperatively working on a task, they can write to the same output file without any extra coordination.
 
+Most times when a program calls write(), it is just telling the file system: please write this data to persistent storage, at some point in the future (eventual guarantee). However, some applications require more than this, e.g., in a database management system (DBMS), development of a correct recovery protocol requires the ability to force writes to disk from time to time. To support these types of applications, most file systems provide some additional control APIs, such as fsync().
+
+The rename() call is usually implemented as an atomic call, with respect to system crashes; if the system crashes during the renaming, the file will either be named the old name or the new name, and not an odd in-between state. 
+
+Beyond file access, we expect the file system to have information about each file it is storing (files metadata). 
+
+Beyond files, a set of directory-related system calls enable you to make, read, and delete directories.
 
 
 
