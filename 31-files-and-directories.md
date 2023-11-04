@@ -31,10 +31,19 @@ Beyond file access, we expect the file system to have information about each fil
 
 Beyond files, a set of directory-related system calls enable you to make, read, and delete directories.
 
+Hard links are somewhat limited: you can't create one to a directory (for fear that you will create a cycle in the directory tree); you can't hard link to files in other disk partitions (because inode numbers are only unique within a particular file system, not across file systems). Symbolic link (soft link) solves this problem. 
 
+symbolic link is actually a file itself, of a different type. Because of the way symbolic links are created, they leave the possibility for dangling reference.
 
+Similar to CPU and memory virtualizations for a process, the file system also presents a virtual view of a disk, transforming it from a bunch of raw blocks into much more user-friendly files and directories. 
 
+However, the abstraction is different from that of the CPU and memory - files are commonly shared among different users and processes and are not (always) private.
 
+Thus, a more comprehensive set of mechanisms for enabling various degrees of sharing, are usually present within file systems.
+- The first form of such mechanisms is the classic U NIX permission bits. The permissions consist of 3 groupings: what the owner of the file can do to it, what someone in a group can do to the file, and, what anyone (other) can do.
 
+On local file systems, the common default is for there to be some kind of superuser (i.e., root), who can access all files, regardless of privileges. In a distributed file system, such as AFS (which has access control lists), a group called "system:administrators" contains users that are trusted to do so.
 
+Beyond permissions bits, some file systems, such as the distributed file system known as AFS, include more sophisticated controls. AFS, for example, does this in the form of an access control list (ACL) per directory. Access control lists are a more general and powerful way, to represent exactly who can access a given resource. In a file system, this enables a user to create a very specific list, of who can and cannot read a set of files, in contrast to the somewhat limited owner/group/everyone model of permissions bits described above.
 
+Instead of having a number of separate file systems, mount unifies all file systems into one tree, making naming uniform and convenient.
